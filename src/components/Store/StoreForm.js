@@ -66,14 +66,8 @@ const StoreForm = ({ onSave, onCancel}) => {
         marginTop: '20px',
     };
 
-
-
-
-
-
-
     const [formData, setFormData] = useState({
-        sNo: '',
+    
         storeCode: '',
         storeType: '',
         storeName: '',

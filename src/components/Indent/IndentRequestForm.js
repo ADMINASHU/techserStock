@@ -115,13 +115,12 @@ const IndentRequestForm = ({ pData, sData, onSave, onCancel }) => {
 
   const [formData, setFormData] = useState({
     indent: "",
-    storeType: "",
+    storeType:storeType ,
     indentDate: indentDate,
-    storeName: "",
+    storeName: storeName,
     indentNo: "",
-    storeAddress: "",
     spareParts: spareParts,
-    serialNo: "",
+    serialNo: serialNo,
   });
 
   const handleChange = (e) => {
@@ -137,6 +136,7 @@ const IndentRequestForm = ({ pData, sData, onSave, onCancel }) => {
     const now = new Date();
     const formattedDateTime = now.toLocaleString();
     setCurrentDateTime(formattedDateTime);
+   
   }, []);
 
   const handleSparePartChange = (index, event) => {
@@ -170,19 +170,23 @@ const IndentRequestForm = ({ pData, sData, onSave, onCancel }) => {
   const handleStoreTypeChange = (e) => {
     const st = e.target.value;
     setStoreType(st);
+    // setStore({});
     const selectedData = sData.filter((data) => data.storeType === st);
     if (selectedData) {
-      const storeList = selectedData.map(obj => obj.storeName)
-      setStoreNameSuggestions(storeList);
+      const storeList = selectedData.map((obj) => obj.storeName);
+      console.log("storeList:",storeList);
+      setStoreNameSuggestions(['Select Store',...storeList]);
     } else {
-      setStoreNameSuggestions([]);
+      setStoreNameSuggestions(['Select Store']);
     }
+
+  
   };
 
   const handleStoreNameChange = (e) => {
     const sn = e.target.value;
     setStoreName(sn);
-
+    // setStore({});
     const selectedData = sData.find(
       (data) => data.storeType === storeType && data.storeName === sn
     );
@@ -277,12 +281,11 @@ const IndentRequestForm = ({ pData, sData, onSave, onCancel }) => {
                     value={storeName}
                     onChange={handleStoreNameChange}
                   >
-                    {
-                      storeNameSuggestions.map((suggestion, index) => (
-                        <option key={index} value={suggestion}>
-                          {suggestion}
-                        </option>
-                      ))}
+                    {storeNameSuggestions.map((suggestion, index) => (
+                      <option key={index} value={suggestion}>
+                        {suggestion}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div style={{ width: "50%" }}>
@@ -588,7 +591,7 @@ const IndentRequestForm = ({ pData, sData, onSave, onCancel }) => {
           </div>
 
           <div style={buttonContainerStyle}>
-            <button type="button" style={{ ...buttonStyle, marginLeft: "40px" }} onClick={onCancel} >
+            <button type="button" style={{ ...buttonStyle, marginLeft: "40px" }} onClick={onCancel}>
               Close
             </button>
             <button type="submit" style={{ ...buttonStyle, marginRight: "40px" }}>

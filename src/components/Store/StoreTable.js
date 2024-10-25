@@ -30,7 +30,7 @@ const StoreTable = ({ data, headers, onAdd }) => {
         <tbody>
           {data.map((row, rowIndex) => (
             <tr key={rowIndex}>
-              <td style={tdStyle}>{row.sNo}</td>
+              <td style={tdStyle}>{rowIndex+1}</td>
               <td style={tdStyle}>{row.storeCode}</td>
               <td style={tdStyle}>{row.storeType}</td>
               <td style={tdStyle}>{row.storeName}</td>

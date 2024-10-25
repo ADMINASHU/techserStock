@@ -37,21 +37,23 @@ const Indent = () => {
   };
   const headers = [
     "S No",
-    "Store Code",
-    "Store Type",
-    "Store Name",
-    "Store Address",
-    "City",
-    "State",
-    "Zip Code",
-    "Store Contact",
-    "Store Email",
-    "GST",
-    "Region",
+    "indent No",
+    "Indent Date",
+    "Indent By",
+    "Spare List",
+    "Customer Details",
+    "Product Details",
   ];
   return (
     <div style={{ padding: "20px" }}>
-      {isFormOpen && <IndentRequestForm pData={productData} sData={storeData} onSave={handleSave} onCancel={handleCancel} />}
+      {isFormOpen && (
+        <IndentRequestForm
+          pData={productData}
+          sData={storeData}
+          onSave={handleSave}
+          onCancel={handleCancel}
+        />
+      )}
       <IndentTable iData={indentData} sData={storeData} headers={headers} onAdd={handleAdd} />
     </div>
   );
