@@ -3,7 +3,7 @@ const Label = '#ff6f61';
 const SubmitButton = '#e76f51';
 
 
-const StoreForm = ({ onSave, onCancel }) => {
+const StoreForm = ({ onSave, onCancel}) => {
 
     const modalOverlayStyle = {
         position: 'fixed',
@@ -78,7 +78,6 @@ const StoreForm = ({ onSave, onCancel }) => {
         storeType: '',
         storeName: '',
         userName: '',
-        userList: [],
         storeAddress: '',
         city: '',
         state: '',
@@ -96,24 +95,7 @@ const StoreForm = ({ onSave, onCancel }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-
-        // Fetch existing data
-        const existingData = JSON.parse(localStorage.getItem('storeData')) || [];
-
-
-        if (!Array.isArray(existingData)) {
-            throw new Error('Existing data is not an array');
-        }
-
-
-        // Append new form data
-        const updatedData = [...existingData, formData];
-
-        // Save back to local storage
-        localStorage.setItem('storeData', JSON.stringify(updatedData));
-        alert('Form submitted successfully!');
-        onSave(updatedData);
+        onSave(formData);
     };
 
     return (

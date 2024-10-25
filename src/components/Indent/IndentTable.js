@@ -1,6 +1,6 @@
 import React from "react";
 
-const StoreTable = ({ data, headers, onAdd }) => {
+const IndentTable = ({ iData, sData, headers, onAdd }) => {
   const tdStyle = { border: "1px solid #ddd", padding: "8px" };
   return (
     <div>
@@ -28,7 +28,7 @@ const StoreTable = ({ data, headers, onAdd }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((row, rowIndex) => (
+          {iData.map((row, rowIndex) => (
             <tr key={rowIndex}>
               <td style={tdStyle}>{row.sNo}</td>
               <td style={tdStyle}>{row.storeCode}</td>
@@ -50,4 +50,4 @@ const StoreTable = ({ data, headers, onAdd }) => {
   );
 };
 
-export default StoreTable;
+export default IndentTable;
