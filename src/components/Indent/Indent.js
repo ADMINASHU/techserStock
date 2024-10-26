@@ -6,15 +6,20 @@ const Indent = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [indentData, setIndentData] = useState([]);
   const [storeData, setStoreData] = useState([]);
+  const [itemList, setItemList] = useState([]);
   const [productData, setProductData] = useState([]);
 
   useEffect(() => {
-    const iData = JSON.parse(localStorage.getItem("indentData")) || [];
-    setIndentData(iData);
+    const rData = JSON.parse(localStorage.getItem("indentData")) || [];
+    setIndentData(rData);
     const pData = JSON.parse(localStorage.getItem("productData")) || [];
     setProductData(pData);
     const sData = JSON.parse(localStorage.getItem("storeData")) || [];
     setStoreData(sData);
+    const iData = JSON.parse(localStorage.getItem("itemData")) || [];
+    const itemList = iData.map((item) => item.name);
+    console.log("itemList", itemList);
+    setItemList(itemList);
   }, []);
 
   const handleAdd = () => {
@@ -48,13 +53,14 @@ const Indent = () => {
     <div style={{ padding: "20px" }}>
       {isFormOpen && (
         <IndentRequestForm
+          iList={itemList} 
           pData={productData}
           sData={storeData}
           onSave={handleSave}
           onCancel={handleCancel}
         />
       )}
-      <IndentTable iData={indentData} sData={storeData} headers={headers} onAdd={handleAdd} />
+      <IndentTable rData={indentData} sData={storeData} headers={headers} onAdd={handleAdd} />
     </div>
   );
 };

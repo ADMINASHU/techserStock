@@ -1,6 +1,6 @@
 import React from "react";
 
-const IndentTable = ({ rData, sData, headers, onAdd }) => {
+const SparePartTable = ({ data, headers, onAdd }) => {
   const tdStyle = { border: "1px solid #ddd", padding: "8px" };
   return (
     <div>
@@ -28,20 +28,19 @@ const IndentTable = ({ rData, sData, headers, onAdd }) => {
           </tr>
         </thead>
         <tbody>
-          {rData.map((row, rowIndex) => (
+          {data.map((row, rowIndex) => (
             <tr key={rowIndex}>
-              <td style={tdStyle}>{row.sNo}</td>
-              <td style={tdStyle}>{row.storeCode}</td>
-              <td style={tdStyle}>{row.storeType}</td>
-              <td style={tdStyle}>{row.storeName}</td>
-              <td style={tdStyle}>{row.storeAddress}</td>
-              <td style={tdStyle}>{row.city}</td>
-              <td style={tdStyle}>{row.state}</td>
-              <td style={tdStyle}>{row.zipCode}</td>
-              <td style={tdStyle}>{row.storeContact}</td>
-              <td style={tdStyle}>{row.storeEmail}</td>
-              <td style={tdStyle}>{row.gst}</td>
-              <td style={tdStyle}>{row.region}</td>
+              <td style={tdStyle}>{rowIndex+1}</td>
+              <td style={tdStyle}>{row.partNumber}</td>
+              <td style={tdStyle}>{row.itemCode}</td>
+              <td style={tdStyle}>{row.itemDescription}</td>
+              <td style={tdStyle}>{row.category}</td>
+              <td style={tdStyle}>{row.name}</td>
+              <td style={tdStyle}>{row.details}</td>
+              <td style={tdStyle}>{row.rating}</td>
+              <td style={tdStyle}>{row.dcVolt}</td>
+              <td style={tdStyle}>{row.phase}</td>
+              <td style={tdStyle}>{row.price}</td>
             </tr>
           ))}
         </tbody>
@@ -50,4 +49,4 @@ const IndentTable = ({ rData, sData, headers, onAdd }) => {
   );
 };
 
-export default IndentTable;
+export default SparePartTable;

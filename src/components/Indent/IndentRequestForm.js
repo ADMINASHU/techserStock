@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-const Label = "#ff6f61";
-const SubmitButton = "#e76f51";
-const DeleteButton = "#d62828";
+import { LabelColor, SubmitButtonColor, DeleteButton, inputBorder } from "../const";
 
-const IndentRequestForm = ({ pData, sData, onSave, onCancel }) => {
+const IndentRequestForm = ({ iList, pData, sData, onSave, onCancel }) => {
   const modalOverlayStyle = {
     position: "fixed",
     top: 0,
@@ -18,7 +16,7 @@ const IndentRequestForm = ({ pData, sData, onSave, onCancel }) => {
   };
 
   const formStyle = {
-    maxWidth: "1400px",
+    maxWidth: "950px",
     margin: "auto",
     padding: "20px",
     border: "1px solid #f4a261",
@@ -41,7 +39,7 @@ const IndentRequestForm = ({ pData, sData, onSave, onCancel }) => {
     display: "block",
     marginBottom: "5px",
     fontWeight: "bold",
-    color: Label,
+    color: LabelColor,
   };
 
   const headerStyle = {
@@ -49,21 +47,21 @@ const IndentRequestForm = ({ pData, sData, onSave, onCancel }) => {
     alignItems: "center",
     justifyContent: "center",
     fontWeight: "bold",
-    color: Label,
+    color: LabelColor,
   };
 
   const inputStyle = {
     width: "100%",
     padding: "8px",
     marginBottom: "10px",
-    border: "1px solid #f4a261",
+    border: inputBorder,
     borderRadius: "4px",
     backgroundColor: "white",
   };
 
   const buttonStyle = {
     padding: "10px 20px",
-    backgroundColor: SubmitButton,
+    backgroundColor: SubmitButtonColor,
     color: "white",
     border: "none",
     borderRadius: "4px",
@@ -72,7 +70,7 @@ const IndentRequestForm = ({ pData, sData, onSave, onCancel }) => {
 
   const addButtonStyle = {
     padding: "10px",
-    backgroundColor: SubmitButton,
+    backgroundColor: SubmitButtonColor,
     color: "white",
     border: "none",
     borderRadius: "4px",
@@ -98,8 +96,6 @@ const IndentRequestForm = ({ pData, sData, onSave, onCancel }) => {
     marginTop: "20px",
   };
 
-  const demoSpareNames = ["Spare Part A", "Spare Part B", "Spare Part C", "Spare Part D"];
-
   const [spareNameSuggestions, setSpareNameSuggestions] = useState([]);
   const [storeNameSuggestions, setStoreNameSuggestions] = useState([]);
   const [currentDateTime, setCurrentDateTime] = useState("");
@@ -115,7 +111,7 @@ const IndentRequestForm = ({ pData, sData, onSave, onCancel }) => {
 
   const [formData, setFormData] = useState({
     indent: "",
-    storeType:storeType ,
+    storeType: storeType,
     indentDate: indentDate,
     storeName: storeName,
     indentNo: "",
@@ -136,7 +132,6 @@ const IndentRequestForm = ({ pData, sData, onSave, onCancel }) => {
     const now = new Date();
     const formattedDateTime = now.toLocaleString();
     setCurrentDateTime(formattedDateTime);
-   
   }, []);
 
   const handleSparePartChange = (index, event) => {
@@ -145,9 +140,10 @@ const IndentRequestForm = ({ pData, sData, onSave, onCancel }) => {
 
     // Filter suggestions based on input
     if (event.target.name === "spareName") {
-      const filteredSuggestions = demoSpareNames.filter((spare) =>
+      const filteredSuggestions = iList.filter((spare) =>
         spare.toLowerCase().includes(event.target.value.toLowerCase())
       );
+      // console.log("filteredSuggestions:", filteredSuggestions);
       setSpareNameSuggestions(filteredSuggestions);
     }
 
@@ -174,13 +170,11 @@ const IndentRequestForm = ({ pData, sData, onSave, onCancel }) => {
     const selectedData = sData.filter((data) => data.storeType === st);
     if (selectedData) {
       const storeList = selectedData.map((obj) => obj.storeName);
-      console.log("storeList:",storeList);
-      setStoreNameSuggestions(['Select Store',...storeList]);
+      console.log("storeList:", storeList);
+      setStoreNameSuggestions(["Select Store", ...storeList]);
     } else {
-      setStoreNameSuggestions(['Select Store']);
+      setStoreNameSuggestions(["Select Store"]);
     }
-
-  
   };
 
   const handleStoreNameChange = (e) => {
@@ -232,12 +226,12 @@ const IndentRequestForm = ({ pData, sData, onSave, onCancel }) => {
   };
 
   return (
-    <div style={modalOverlayStyle}>
+    <div style={modalOverlayStyle} onClick={onCancel}>
       <div style={formStyle}>
         <h2>Add Indent/Request Form</h2>
         <form onSubmit={handleSubmit}>
           <div style={sectionSideStyle}>
-            <div style={{ width: "55%" }}>
+            <div style={{ width: "50%" }}>
               <h3>Indent Information</h3>
               <div style={sectionSideStyle}>
                 <div style={{ width: "50%" }}>
@@ -390,6 +384,42 @@ const IndentRequestForm = ({ pData, sData, onSave, onCancel }) => {
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div style={{ width: "50%" }}>
+              <div style={{ ...sectionStyle }}>
+                <h3>User Time Stamp</h3>
+                <div style={sectionSideStyle}>
+                  <div style={{ width: "100%" }}>
+                    <label style={labelStyle}>Created By:</label>
+                    <input
+                      type="text"
+                      placeholder="Enter Creator Name"
+                      value="Admin"
+                      style={inputStyle}
+                    />
+                    <label style={labelStyle}>Reviewed by:</label>
+                    <input type="text" placeholder="Enter Reviewer Name" style={inputStyle} />
+                    <label style={labelStyle}>Approved by:</label>
+                    <input type="text" placeholder="Enter Approver Name" style={inputStyle} />
+                  </div>
+                  <div style={{ width: "100%" }}>
+                    <label style={labelStyle}>Created DateTime:</label>
+                    <input
+                      type="text"
+                      placeholder="Enter Creation DateTime"
+                      value={currentDateTime}
+                      readOnly
+                      style={inputStyle}
+                    />
+                    <label style={labelStyle}>Reviewed DateTime:</label>
+                    <input type="text" placeholder="Enter Review DateTime" style={inputStyle} />
+                    <label style={labelStyle}>Approved DateTime:</label>
+                    <input type="text" placeholder="Enter Approval DateTime" style={inputStyle} />
+                  </div>
+                </div>
+              </div>
+
               <div style={sectionStyle}>
                 <h3>Customer Details</h3>
                 <div style={sectionSideStyle}>
@@ -474,40 +504,9 @@ const IndentRequestForm = ({ pData, sData, onSave, onCancel }) => {
                 </div>
               </div>
             </div>
-
-            <div style={{ width: "45%" }}>
-              <div style={{ ...sectionStyle }}>
-                <h3>User Time Stamp</h3>
-                <div style={sectionSideStyle}>
-                  <div style={{ width: "100%" }}>
-                    <label style={labelStyle}>Created By:</label>
-                    <input
-                      type="text"
-                      placeholder="Enter Creator Name"
-                      value="Admin"
-                      style={inputStyle}
-                    />
-                    <label style={labelStyle}>Reviewed by:</label>
-                    <input type="text" placeholder="Enter Reviewer Name" style={inputStyle} />
-                    <label style={labelStyle}>Approved by:</label>
-                    <input type="text" placeholder="Enter Approver Name" style={inputStyle} />
-                  </div>
-                  <div style={{ width: "100%" }}>
-                    <label style={labelStyle}>Created DateTime:</label>
-                    <input
-                      type="text"
-                      placeholder="Enter Creation DateTime"
-                      value={currentDateTime}
-                      readOnly
-                      style={inputStyle}
-                    />
-                    <label style={labelStyle}>Reviewed DateTime:</label>
-                    <input type="text" placeholder="Enter Review DateTime" style={inputStyle} />
-                    <label style={labelStyle}>Approved DateTime:</label>
-                    <input type="text" placeholder="Enter Approval DateTime" style={inputStyle} />
-                  </div>
-                </div>
-              </div>
+          </div>
+          <div style={sectionSideStyle}>
+            <div style={{ width: "100%" }}>
               <div style={{ ...sectionStyle }}>
                 <h3>Spare Part Details</h3>
                 <div style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
@@ -589,7 +588,6 @@ const IndentRequestForm = ({ pData, sData, onSave, onCancel }) => {
               </div>
             </div>
           </div>
-
           <div style={buttonContainerStyle}>
             <button type="button" style={{ ...buttonStyle, marginLeft: "40px" }} onClick={onCancel}>
               Close

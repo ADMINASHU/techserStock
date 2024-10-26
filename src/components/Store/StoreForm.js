@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-const Label = '#ff6f61';
-const SubmitButton = '#e76f51';
+import { LabelColor, SubmitButtonColor, inputBorder  } from "../const";
+
 
 
 const StoreForm = ({ onSave, onCancel}) => {
@@ -38,21 +38,21 @@ const StoreForm = ({ onSave, onCancel}) => {
         display: 'block',
         marginBottom: '5px',
         fontWeight: 'bold',
-        color: Label,
+        color: LabelColor,
     };
 
     const inputStyle = {
         width: '100%',
         padding: '8px',
         marginBottom: '10px',
-        border: '1px solid #f4a261',
+        border: inputBorder,
         borderRadius: '4px',
         backgroundColor: 'white',
     };
 
     const buttonStyle = {
         padding: '10px 20px',
-        backgroundColor: SubmitButton,
+        backgroundColor: SubmitButtonColor,
         color: 'white',
         border: 'none',
         borderRadius: '4px',
@@ -93,7 +93,7 @@ const StoreForm = ({ onSave, onCancel}) => {
     };
 
     return (
-        <div style={modalOverlayStyle}>
+        <div style={modalOverlayStyle} onClick={onCancel}>
             <div style={{ ...formStyle, marginTop: '200px', marginBottom: '200px' }}>
                 <h2>Add Store Form</h2>
                 <form onSubmit={handleSubmit}>
